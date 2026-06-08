@@ -1,0 +1,237 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════
+   LIGHT THEME (White & Blue Modern Aesthetic)
+   Inspired by crisp, modern UI (like Upstage Leaderboard)
+   ═══════════════════════════════════════════════════ */
+:root {
+  /* Base & Surfaces - 완전 깔끔한 흰색 베이스 */
+  --background: #f8fafc; /* 카드 바깥 배경은 아주 연한 회색으로 처리해 흰색 카드를 부각 */
+  --foreground: #111827; /* 텍스트 기본 색상을 더 짙고 또렷한 블랙으로 */
+
+  --th-bg: #f8fafc;
+  --th-card: #ffffff; /* 카드는 완벽한 퓨어 화이트 */
+  --th-card-alt: #f8fafc;
+  --th-card-hover: #f1f5f9;
+  --th-sidebar: #ffffff;
+  --th-inset: #f1f5f9;
+
+  /* Text - 가독성을 높인 무채색 텍스트와 파란색 포인트 */
+  --th-text: #111827; 
+  --th-text-secondary: #4b5563;
+  --th-text-muted: #9ca3af;
+  --th-text-accent: #2563eb; /* 쨍한 블루 */
+  --th-text-inverse: #ffffff;
+
+  /* Borders - 얇고 연해서 거슬리지 않는 테두리 */
+  --th-border: #e5e7eb;
+  --th-border-subtle: #f3f4f6;
+  --th-ring: rgba(6, 6, 7, 0.25);
+
+  /* Accent - 첨부 이미지 느낌의 시원한 블루 포인트 */
+  --th-accent: #2563eb; 
+  --th-accent-hover: #1d4ed8;
+  --th-accent-soft: rgba(37, 99, 235, 0.08);
+  --th-accent-muted: rgba(37, 99, 235, 0.15);
+
+  /* Brand highlight - 유채색은 오직 블루 계열로 통일 */
+  --th-brand-bg: rgba(37, 99, 235, 0.1);
+  --th-brand-text: #2563eb;
+  --th-competitor-bg: rgba(75, 85, 99, 0.1); /* 경쟁사는 무채색(회색)으로 빼서 내 브랜드(파란색)만 돋보이게 */
+  --th-competitor-text: #4b5563;
+
+  /* Status - 꼭 필요한 상태 표시 외에는 톤 다운 */
+  --th-success: #10b981;
+  --th-success-soft: rgba(16, 185, 129, 0.1);
+  --th-warning: #f59e0b;
+  --th-warning-soft: rgba(245, 158, 11, 0.1);
+  --th-danger: #ef4444;
+  --th-danger-soft: rgba(239, 68, 68, 0.1);
+
+  /* Shadows - 둥둥 떠있는 듯한 크고 부드러운 그림자 효과 */
+  --th-shadow: 0 4px 20px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --th-shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.06);
+
+  /* Borders (extra) */
+  --th-border-hover: #d1d5db;
+
+  /* Chart - 차트도 쨍한 파란색 라인으로 통일 */
+  --th-chart-line: #2563eb;
+  --th-chart-grid: rgba(0, 0, 0, 0.04);
+  --th-chart-dot: #1d4ed8;
+  --th-chart-axis: #9ca3af;
+
+  --th-score-ring-bg: #e5e7eb;
+
+  /* Scrollbar */
+  --th-scrollbar: rgba(156, 163, 175, 0.3);
+}
+
+/* ═══════════════════════════════════════════════════
+   DARK THEME
+   Refined navy palette — no neon, softer blues
+   ═══════════════════════════════════════════════════ */
+.dark {
+  --background: #0b1121;
+  --foreground: #e2e8f0;
+
+  --th-bg: #0b1121;
+  --th-card: #111827;
+  --th-card-alt: #0f172a;
+  --th-card-hover: #1e293b;
+  --th-sidebar: #0f172a;
+  --th-inset: #0d1424;
+
+  --th-text: #e2e8f0;
+  --th-text-secondary: #94a3b8;
+  --th-text-muted: #64748b;
+  --th-text-accent: #60a5fa;
+  --th-text-inverse: #0f172a;
+
+  --th-border: #1e293b;
+  --th-border-subtle: rgba(30, 41, 59, 0.6);
+  --th-ring: rgba(96, 165, 250, 0.25);
+
+  --th-accent: #3b82f6;
+  --th-accent-hover: #60a5fa;
+  --th-accent-soft: rgba(59, 130, 246, 0.12);
+  --th-accent-muted: rgba(59, 130, 246, 0.2);
+
+  --th-brand-bg: rgba(96, 165, 250, 0.12);
+  --th-brand-text: #60a5fa;
+  --th-competitor-bg: rgba(251, 146, 60, 0.12);
+  --th-competitor-text: #fb923c;
+
+  --th-success: #34d399;
+  --th-success-soft: rgba(52, 211, 153, 0.12);
+  --th-warning: #fbbf24;
+  --th-warning-soft: rgba(251, 191, 36, 0.12);
+  --th-danger: #f87171;
+  --th-danger-soft: rgba(248, 113, 113, 0.12);
+
+  --th-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+  --th-shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.4);
+
+  --th-border-hover: #334155;
+
+  --th-chart-line: #60a5fa;
+  --th-chart-grid: rgba(148, 163, 184, 0.1);
+  --th-chart-dot: #3b82f6;
+  --th-chart-axis: #94a3b8;
+
+  --th-score-ring-bg: #1e293b;
+  --th-scrollbar: rgba(148, 163, 184, 0.15);
+}
+
+/* ═══════════════════════════════════════════════════
+   Tailwind v4 Theme Tokens
+   ═══════════════════════════════════════════════════ */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-th-bg: var(--th-bg);
+  --color-th-card: var(--th-card);
+  --color-th-card-alt: var(--th-card-alt);
+  --color-th-card-hover: var(--th-card-hover);
+  --color-th-sidebar: var(--th-sidebar);
+  --color-th-inset: var(--th-inset);
+  --color-th-text: var(--th-text);
+  --color-th-text-secondary: var(--th-text-secondary);
+  --color-th-text-muted: var(--th-text-muted);
+  --color-th-text-accent: var(--th-text-accent);
+  --color-th-text-inverse: var(--th-text-inverse);
+  --color-th-border: var(--th-border);
+  --color-th-border-hover: var(--th-border-hover);
+  --color-th-border-subtle: var(--th-border-subtle);
+  --color-th-accent: var(--th-accent);
+  --color-th-accent-hover: var(--th-accent-hover);
+  --color-th-accent-soft: var(--th-accent-soft);
+  --color-th-accent-muted: var(--th-accent-muted);
+  --color-th-brand-bg: var(--th-brand-bg);
+  --color-th-brand-text: var(--th-brand-text);
+  --color-th-competitor-bg: var(--th-competitor-bg);
+  --color-th-competitor-text: var(--th-competitor-text);
+  --color-th-success: var(--th-success);
+  --color-th-success-soft: var(--th-success-soft);
+  --color-th-warning: var(--th-warning);
+  --color-th-warning-soft: var(--th-warning-soft);
+  --color-th-danger: var(--th-danger);
+  --color-th-danger-soft: var(--th-danger-soft);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains-mono);
+}
+
+/* ═══════════════════════════════════════════════════
+   Base Styles
+   ═══════════════════════════════════════════════════ */
+/* Base Styles 부분 수정 */
+body {
+  /* 은은하고 고급스러운 파란색 매시 그라데이션 */
+  background: linear-gradient(135deg, #f8f7c7 0%, #4479f4 50%, #1054f4 100%);
+  color: var(--foreground);
+  font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
+  margin: 0;
+  min-height: 100vh;
+  overflow: hidden; /* 스크롤바 세팅에 따라 auto로 변경 가능 */
+}
+/* Scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--th-scrollbar) transparent;
+}
+*::-webkit-scrollbar { width: 6px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb { background: var(--th-scrollbar); border-radius: 3px; }
+
+::selection {
+  background: var(--th-accent-muted);
+  color: var(--th-text);
+}
+
+/* ═══════════════════════════════════════════════════
+   Component Classes
+   ═══════════════════════════════════════════════════ */
+.bd-panel {
+  background: var(--th-card);
+  border: 1px solid var(--th-border);
+  box-shadow: var(--th-shadow);
+}
+
+.bd-chip {
+  border: 1px solid var(--th-border);
+  background: var(--th-card-alt);
+  color: var(--th-text-secondary);
+  transition: background-color 0.15s, border-color 0.15s;
+}
+.bd-chip:hover {
+  background: var(--th-card-hover);
+  border-color: var(--th-accent);
+}
+
+.bd-btn-primary {
+  background: var(--th-accent);
+  color: var(--th-text-inverse);
+  border: 1px solid var(--th-accent);
+  box-shadow: 0 1px 3px rgba(59, 130, 246, 0.25);
+  font-weight: 500;
+  transition: background-color 0.15s, box-shadow 0.15s;
+}
+.bd-btn-primary:hover {
+  background: var(--th-accent-hover);
+  box-shadow: 0 2px 6px rgba(59, 130, 246, 0.35);
+}
+
+.bd-input {
+  background: var(--th-card);
+  border: 1px solid var(--th-border);
+  color: var(--th-text);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.bd-input::placeholder {
+  color: var(--th-text-muted);
+}
+.bd-input:focus {
+  outline: none;
+  border-color: var(--th-accent);
+  box-shadow: 0 0 0 3px var(--th-ring);
+}
