@@ -76,13 +76,7 @@ playwright install chromium
 ```
 **3\. 🚨 Buster 크롬 확장 프로그램 준비 (캡차 우회용)**
 
-본 크롤러는 구글 검색 시 빈번하게 발생하는 캡차(reCAPTCHA)를 자동으로 풀기 위해 **크롬 확장 프로그램(Buster: Captcha Solver for Humans)** 을 사용합니다. 크롤러 파이썬 파일(main.py)과 동일한 위치에 buster\_extension 폴더가 존재해야 합니다.
-
-* 🔑 **\[중요\] secrets.txt 설정 방법 (캡차 우회 API 토큰):** 본 크롤러는 그림 캡차 대신 '오디오 캡차'를 듣고 텍스트로 변환(Speech-to-Text)하여 캡차를 풉니다. 이때 외부 음성 인식 AI(예: Wit.ai)를 사용하게 되며, 여기에 필요한 API 키를 안전하게 암호화해둔 파일이 바로 secrets.txt입니다.  
-  과금이 발생할 수 있는 키이므로 보안을 위해 깃허브에서 제외되어 있습니다. 캡차 우회 기능이 정상 작동하려면 아래 절차를 반드시 수행해 주세요.  
-  1. buster\_extension 폴더 내에 있는 견본 파일인 secrets.example.txt의 이름을 **secrets.txt** 로 변경합니다.  
-  2. secrets.txt 파일을 메모장 등으로 엽니다.  
-  3. 사내 메신저나 위키(문서)를 확인하여 관리자가 미리 암호화해둔 토큰 코드(U2FsdGVk... 로 시작하는 문자열)를 찾아 복사한 뒤, 파일 안에 붙여넣고 저장합니다.*💡 참고: 코드를 찾을 수 없다면 프로젝트 관리자에게 "Buster 캡차 우회용 secrets.txt 암호화 토큰을 전달해 달라"고 요청하세요.*
+본 크롤러는 구글 검색 시 빈번하게 발생하는 캡차(reCAPTCHA)를 자동으로 풀기 위해 **크롬 확장 프로그램(Buster: Captcha Solver for Humans)** 을 사용합니다. 
 
 ## **🚀 3단계: 프로젝트 실행하기**
 
@@ -90,7 +84,7 @@ playwright install chromium
 
 ### **터미널 1: 백엔드 크롤러 서버 실행**
 
-파이썬 파일(main.py)이 있는 경로에서 아래 명령어를 실행합니다.
+파이썬 파일(main.py)이 있는 경로(\Crawler\aeo-crawler)에서 아래 명령어를 실행합니다.
 ```
 \# 파일명이 main.py가 아닌 경우, 실행 파일 이름으로 변경해주세요.  
 python main.py
