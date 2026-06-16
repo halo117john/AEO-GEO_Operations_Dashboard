@@ -25,12 +25,12 @@ import { ALL_PROVIDERS, PROVIDER_LABELS, SCHEDULE_OPTIONS, tabs } from "@/compon
 
 // 💡 [추가] 탭 활성화 여부를 TRUE/FALSE로 관리하는 설정 객체
 const TAB_VISIBILITY: Record<TabKey, boolean> = {
-  "Project Settings": false,
+  "Project Settings": true,
   "Prompt Hub": true,
   "Persona Fan-Out": false,
   "Niche Explorer": false,
   "Automation": true,           // 스케줄링
-  "Competitor Battlecards": false,
+  "Competitor Battlecards": true,
   "Responses": true,            // AI 응답 결과
   "AI Logs": true,
   "Visibility Analytics": true,
@@ -609,7 +609,7 @@ export function SovereignDashboard({ demoMode = false }: { demoMode?: boolean } 
   }
 
   const partnerLeaderboard = useMemo(() => {
-    // 💡 쓰레기 URL 필터링 목록에 구글 고객센터 등을 추가합니다.
+    // 💡 쓰레기 URL 필터링 목록
     const junkHosts = [
       "cloudfront.net", "cdn.prod.website-files.com", "cdn.jsdelivr.net",
       "cdnjs.cloudflare.com", "unpkg.com", "fastly.net", "akamaihd.net",

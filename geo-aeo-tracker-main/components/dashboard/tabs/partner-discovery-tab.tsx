@@ -28,6 +28,21 @@ function extractPath(url: string): string {
   }
 }
 
+function getBaseUrl(url: string): string {
+  try {
+    const parsed = new URL(url);
+    // 유튜브 도메인인 경우 시간 파라미터(&t=, &time_continue=) 제거
+    if (parsed.hostname.includes("youtube.com") || parsed.hostname.includes("youtu.be")) {
+      parsed.searchParams.delete("t");
+      parsed.searchParams.delete("time_continue");
+      return parsed.toString();
+    }
+    return url;
+  } catch {
+    return url;
+  }
+}
+
 type SortKey = "citations" | "pages" | "prompts" | "domain";
 
 const CHART_COLORS = [
@@ -137,18 +152,33 @@ export function PartnerDiscoveryTab({ runs = [], partnerLeaderboard, brandWebsit
       }
     }
 
-    const map = new Map<string, { count: number; prompts: Set<string> }>();
+    // 💡 1. Map에 specificUrls(원본 URL) 보존 공간 추가
+    const map = new Map<string, { count: number; prompts: Set<string>; providers: Set<string>; specificUrls: Set<string> }>();
+    
     filteredRuns.forEach((run) => {
       (run.sources || []).filter(isCleanUrl).forEach((source) => {
-        const existing = map.get(source) ?? { count: 0, prompts: new Set<string>() };
+        const baseUrl = getBaseUrl(source); // 💡 2. 베이스 URL 추출
+        
+        // 💡 3. 초기값에 specificUrls: new Set<string>() 추가
+        const existing = map.get(baseUrl) ?? { count: 0, prompts: new Set<string>(), providers: new Set<string>(), specificUrls: new Set<string>() };
         existing.count += 1;
         existing.prompts.add(run.prompt);
-        map.set(source, existing);
+        if (run.provider) existing.providers.add(run.provider);
+        
+        existing.specificUrls.add(source); // 💡 4. 타임스탬프가 포함된 원본 URL 저장
+        
+        map.set(baseUrl, existing); // 묶을 때는 baseUrl 기준으로 묶습니다.
       });
     });
 
     return [...map.entries()]
-      .map(([url, data]) => ({ url, count: data.count, prompts: [...data.prompts] }))
+      .map(([url, data]) => ({ 
+        url, // 여기서 url은 시간이 제거된 본체 영상 주소입니다.
+        count: data.count, 
+        prompts: [...data.prompts], 
+        providers: [...data.providers],
+        specificUrls: [...data.specificUrls] // 보존된 원본 URL 배열 전달
+      }))
       .sort((a, b) => b.count - a.count);
   }, [filteredRuns]);
 
@@ -313,11 +343,28 @@ export function PartnerDiscoveryTab({ runs = [], partnerLeaderboard, brandWebsit
   const uniquePrompts = useMemo(() => new Set(cleanedLeaderboard.flatMap((p) => p.prompts)).size, [cleanedLeaderboard]);
 
   const exportCsv = useCallback(() => {
-    let csv = "도메인,URL,내 브랜드 인용 횟수,전체 수집 횟수,관련 프롬프트\n";
+    // 💡 1. 헤더에 '상세 출처(타임스탬프)' 컬럼 추가
+    let csv = "도메인,기준 URL,상세 출처(타임스탬프),내 브랜드 인용 횟수,전체 수집 횟수,AI 모델,관련 프롬프트\n";
+    
     cleanedLeaderboard.forEach((item) => {
       const bCount = brandLeaderboard.find(b => b.url === item.url)?.count || 0;
-      csv += `"${extractDomain(item.url)}","${item.url}",${bCount},${item.count},"${item.prompts.join(" | ")}"\n`;
+      
+      const providersArray = item.providers && item.providers.length > 0 
+        ? item.providers 
+        : ["미상"];
+        
+      // 💡 2. 보존해둔 원본 URL들을 | 기호로 예쁘게 연결
+      const specificUrlsStr = item.specificUrls && item.specificUrls.length > 0 
+        ? item.specificUrls.join(" | ") 
+        : item.url;
+      
+      providersArray.forEach((provider) => {
+        const providerName = PROVIDER_LABELS[provider as Provider] || provider; 
+        // 💡 3. csv 행 생성 시 specificUrlsStr 추가
+        csv += `"${extractDomain(item.url)}","${item.url}","${specificUrlsStr}",${bCount},${item.count},"${providerName}","${item.prompts.join(" | ")}"\n`;
+      });
     });
+    
     const bom = "\uFEFF";
     const blob = new Blob([bom + csv], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
